@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Date: Sun, 08 Mar 2026 03:44:46 GMT
+Server: Apache/2.4.38 (Debian)
+X-Powered-By: PHP/7.3.11
+X-Static-PublicQv: 0
+X-Static-InQueryVars: 0
+Link: <http://localhost:8082/index.php?rest_route=/>; rel="https://api.w.org/"
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
