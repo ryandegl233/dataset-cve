@@ -1,53 +1,50 @@
 {
   "cve": "CVE-2019-17671",
   "application": "WordPress",
-  "description": "WordPress query variable vulnerability allowing unregistered query variables to be processed by the application.",
-  "dataset_type": "fault",
   "environment": {
-    "platform": "Kubernetes",
-    "cluster": "kind",
-    "os": "Ubuntu (VMware)"
-  },
-  "deployment": {
+    "platform": "Ubuntu VM",
+    "orchestration": "Kubernetes (kind)",
     "namespaces": [
       "wp-vuln",
       "wp-fixed"
-    ],
-    "manifest": "wp-dual.yaml"
+    ]
   },
   "attack": {
-    "method": "HTTP request",
     "payload": "GET /?static=1",
     "scripts": [
       "attack_vuln_tagged.sh",
       "attack_fixed_tagged.sh"
     ]
   },
-  "ground_truth": {
-    "vulnerable": {
-      "header": {
-        "X-Static-PublicQv": 1,
-        "X-Static-InQueryVars": 1
-      }
-    },
-    "fixed": {
-      "header": {
-        "X-Static-PublicQv": 0,
-        "X-Static-InQueryVars": 0
-      }
-    }
-  },
-  "artifacts": {
-    "response_headers": [
+  "evidence": {
+    "syscall_traces": [
+      "logs/vuln.scap",
+      "logs/fixed.scap"
+    ],
+    "network_traces": [
+      "logs/vuln.pcap",
+      "logs/fixed.pcap"
+    ],
+    "http_headers": [
       "artifacts/vuln_response_headers.txt",
       "artifacts/fixed_response_headers.txt"
     ]
   },
-  "logs": {
-    "dynamic_trace": [
-      "logs/vuln.scap",
-      "logs/fixed.scap"
+  "ground_truth": {
+    "markers": [
+      "ATTACK_START",
+      "ATTACK_STOP"
     ],
-    "collector": "sysdig"
+    "mechanism": "logger"
+  },
+  "vulnerability_behavior": {
+    "vulnerable": {
+      "X-Static-PublicQv": 1,
+      "X-Static-InQueryVars": 1
+    },
+    "fixed": {
+      "X-Static-PublicQv": 0,
+      "X-Static-InQueryVars": 0
+    }
   }
 }

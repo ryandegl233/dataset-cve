@@ -2,9 +2,16 @@
 
 ## Overview
 
-This dataset sample reproduces **CVE-2019-17671**, a vulnerability in WordPress where unregistered query variables can be processed by the application.
+This case reproduces **CVE-2019-17671** in WordPress and organizes the result as a fault-oriented dataset sample.
 
-The case includes both a **vulnerable version** and a **fixed version**, deployed in Kubernetes, and captures the runtime behavior using **sysdig**.
+The dataset includes:
+
+- a vulnerable WordPress instance
+- a fixed WordPress instance
+- attack scripts
+- HTTP-level behavioral evidence
+- syscall traces collected by sysdig
+- network traces collected by tcpdump
 
 ---
 
@@ -12,117 +19,176 @@ The case includes both a **vulnerable version** and a **fixed version**, deploye
 
 Platform:
 
-- Kubernetes (kind)
 - Ubuntu VM (VMware)
+- Docker
+- Kubernetes (kind)
 
 Namespaces:
 
-- wp-vuln
-- wp-fixed
+- `wp-vuln`
+- `wp-fixed`
 
-Deployment manifest:
+Deployment file:
 
-wp-dual.yaml
+- `wp-dual.yaml`
 
 ---
 
 ## Vulnerability
 
-CVE: **CVE-2019-17671**
+CVE:
 
-The vulnerability allows unregistered query variables to be accepted by WordPress.
+- **CVE-2019-17671**
 
-Example payload:
+Target application:
 
-GET /?static=1
+- **WordPress**
+
+Vulnerable behavior:
+
+- an unregistered query variable (`static`) is accepted and processed by the vulnerable version
+
+Attack payload:
+
+- `GET /?static=1`
 
 ---
 
-## Detection Signal
+## Ground Truth Signal
 
-A probe plugin (`qv-probe.php`) is injected into WordPress to expose whether the query variable is accepted.
+A custom probe plugin (`qv-probe.php`) is injected into both WordPress instances.
 
-HTTP headers returned by the probe:
+The probe returns two HTTP headers:
 
-### Vulnerable
+- `X-Static-PublicQv`
+- `X-Static-InQueryVars`
 
-X-Static-PublicQv: 1  
-X-Static-InQueryVars: 1
+### Vulnerable Version
 
-### Fixed
+Expected headers:
 
-X-Static-PublicQv: 0  
-X-Static-InQueryVars: 0
+- `X-Static-PublicQv: 1`
+- `X-Static-InQueryVars: 1`
+
+### Fixed Version
+
+Expected headers:
+
+- `X-Static-PublicQv: 0`
+- `X-Static-InQueryVars: 0`
+
+This confirms that the vulnerable version accepts the `static` query variable, while the fixed version does not.
 
 ---
 
 ## Attack Scripts
 
-attack_vuln_tagged.sh  
-attack_fixed_tagged.sh
+The case includes two tagged attack scripts:
 
-These scripts send HTTP requests to the WordPress service and log attack markers using `logger`.
+- `attack_vuln_tagged.sh`
+- `attack_fixed_tagged.sh`
 
-Example payload:
+These scripts:
 
-curl http://localhost:8080/?static=1
+1. insert an attack-start marker using `logger`
+2. send the HTTP request
+3. save response headers
+4. insert an attack-stop marker
 
----
+Attack request examples:
 
-## Artifacts
-
-HTTP response headers captured during attack execution:
-
-artifacts/vuln_response_headers.txt  
-artifacts/fixed_response_headers.txt
-
-These files contain the exact headers returned by the WordPress service during the attack.
+- `http://localhost:8080/?static=1` for vulnerable
+- `http://localhost:8082/?static=1` for fixed
 
 ---
 
-## Runtime Logs
+## Runtime Evidence
 
-Dynamic system-call traces were collected using **sysdig**.
+### Application-Level Evidence
 
-logs/vuln.scap  
-logs/fixed.scap
+Captured response headers are stored in:
 
-These traces contain runtime system calls related to the attack execution, including:
+- `artifacts/vuln_response_headers.txt`
+- `artifacts/fixed_response_headers.txt`
 
-- curl execution
-- Apache request handling
-- WordPress processing
+These files show the expected vulnerable/fixed behavior difference.
+
+### Syscall-Level Evidence
+
+System-call traces were collected using **sysdig**:
+
+- `logs/vuln.scap`
+- `logs/fixed.scap`
+
+The traces contain runtime evidence such as:
+
+- `curl` execution
+- `logger` execution
+- `apache2` activity
+
+The attack marker is visible in the syscall trace through the `logger` process arguments, for example:
+
+- `ATTACK_START vuln`
+- `ATTACK_STOP vuln`
+
+### Network-Level Evidence
+
+Network traces were collected using **tcpdump**:
+
+- `logs/vuln.pcap`
+- `logs/fixed.pcap`
+
+The vulnerable trace includes the attack request:
+
+- `GET /?static=1 HTTP/1.1`
+
+This confirms that the attack traffic is present at the network layer.
 
 ---
 
 ## Dataset Structure
 
+```text
 CVE-2019-17671/
-
-metadata.json  
-README.md  
-
-wp-dual.yaml  
-qv-probe.php  
-
-attack_vuln_tagged.sh  
-attack_fixed_tagged.sh  
-
-artifacts/  
-    vuln_response_headers.txt  
-    fixed_response_headers.txt  
-
-logs/  
-    vuln.scap  
-    fixed.scap  
+├── metadata.json
+├── README.md
+├── kind-config.yaml
+├── wp-dual.yaml
+├── qv-probe.php
+├── attack_vuln_tagged.sh
+├── attack_fixed_tagged.sh
+├── artifacts/
+│   ├── vuln_response_headers.txt
+│   └── fixed_response_headers.txt
+└── logs/
+    ├── vuln.scap
+    ├── fixed.scap
+    ├── vuln.pcap
+    └── fixed.pcap
+```
 
 ---
 
 ## Purpose
 
-This case is designed for **fault dataset construction** and can be used for:
+This sample is intended for fault-oriented dataset construction and can support downstream tasks such as:
 
-- vulnerability detection research
+- vulnerability behavior analysis
 - runtime anomaly detection
-- syscall-level security analysis
-- patch verification studies
+- syscall-level security research
+- network traffic analysis
+- patch verification
+- multi-modal security benchmark construction
+
+---
+
+## Status
+
+I have completed:
+
+- vulnerable/fixed deployment
+- attack reproduction
+- behavioral verification
+- syscall trace collection
+- network trace collection
+- dataset artifact organization

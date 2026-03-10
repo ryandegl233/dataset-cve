@@ -1,9 +1,7 @@
 HTTP/1.1 200 OK
-Date: Sun, 08 Mar 2026 03:44:21 GMT
+Date: Tue, 10 Mar 2026 02:39:58 GMT
 Server: Apache/2.4.38 (Debian)
 X-Powered-By: PHP/7.3.10
-X-Static-PublicQv: 1
-X-Static-InQueryVars: 1
 X-Pingback: http://localhost:8080/xmlrpc.php
 Link: <http://localhost:8080/index.php?rest_route=/>; rel="https://api.w.org/"
 Link: <http://localhost:8080/?p=2>; rel=shortlink
