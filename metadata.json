@@ -11,11 +11,16 @@
   },
   "attack": {
     "payload": "GET /?static=1",
+    "attack_label": "X-Attack-ID",
     "scripts": [
       "attack_vuln_tagged.sh",
       "attack_fixed_tagged.sh"
     ]
   },
+  "capture_tools": [
+    "sysdig",
+    "tcpdump"
+  ],
   "evidence": {
     "syscall_traces": [
       "logs/vuln.scap",

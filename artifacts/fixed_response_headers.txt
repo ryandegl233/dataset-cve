@@ -1,10 +1,9 @@
-HTTP/1.1 301 Moved Permanently
-Date: Tue, 10 Mar 2026 02:46:42 GMT
+HTTP/1.1 200 OK
+Date: Thu, 12 Mar 2026 07:22:20 GMT
 Server: Apache/2.4.38 (Debian)
-X-Powered-By: PHP/7.3.10
-X-Pingback: http://localhost:8080/xmlrpc.php
-X-Redirect-By: WordPress
-Location: http://localhost:8080/?static=1
-Content-Length: 0
+X-Powered-By: PHP/7.3.11
+Link: <http://localhost:8082/index.php?rest_route=/>; rel="https://api.w.org/"
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
 Content-Type: text/html; charset=UTF-8
 
