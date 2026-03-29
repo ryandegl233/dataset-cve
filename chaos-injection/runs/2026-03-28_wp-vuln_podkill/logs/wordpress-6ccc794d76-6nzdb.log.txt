@@ -1,0 +1,6 @@
+WordPress not found in /var/www/html - copying now...
+Complete! WordPress has been successfully copied to /var/www/html
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 10.244.0.15. Set the 'ServerName' directive globally to suppress this message
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 10.244.0.15. Set the 'ServerName' directive globally to suppress this message
+[Sat Mar 28 03:56:51.728011 2026] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.38 (Debian) PHP/7.3.10 configured -- resuming normal operations
+[Sat Mar 28 03:56:51.728931 2026] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'

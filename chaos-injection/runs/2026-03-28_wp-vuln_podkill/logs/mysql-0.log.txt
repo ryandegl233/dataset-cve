@@ -1,0 +1,41 @@
+2026-03-28 03:45:12+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+2026-03-28 03:45:17+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-03-28 03:45:17+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+'/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+2026-03-28T03:45:24.455242Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+2026-03-28T03:45:24.457441Z 0 [Note] mysqld (mysqld 5.7.44) starting as process 1 ...
+2026-03-28T03:45:24.463197Z 0 [Note] InnoDB: PUNCH HOLE support available
+2026-03-28T03:45:24.463236Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2026-03-28T03:45:24.463239Z 0 [Note] InnoDB: Uses event mutexes
+2026-03-28T03:45:24.463242Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
+2026-03-28T03:45:24.463244Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
+2026-03-28T03:45:24.463246Z 0 [Note] InnoDB: Using Linux native AIO
+2026-03-28T03:45:24.463723Z 0 [Note] InnoDB: Number of pools: 1
+2026-03-28T03:45:24.463897Z 0 [Note] InnoDB: Using CPU crc32 instructions
+2026-03-28T03:45:24.472219Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+2026-03-28T03:45:24.630875Z 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-03-28T03:45:24.674578Z 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+2026-03-28T03:45:24.702614Z 0 [Note] InnoDB: Highest supported file format is Barracuda.
+2026-03-28T03:45:25.848920Z 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-03-28T03:45:25.849409Z 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-03-28T03:45:26.288656Z 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2026-03-28T03:45:26.293909Z 0 [Note] InnoDB: 96 redo rollback segment(s) found. 96 redo rollback segment(s) are active.
+2026-03-28T03:45:26.296594Z 0 [Note] InnoDB: 32 non-redo rollback segment(s) are active.
+2026-03-28T03:45:26.346973Z 0 [Note] InnoDB: 5.7.44 started; log sequence number 13938913
+2026-03-28T03:45:26.355489Z 0 [Note] Plugin 'FEDERATED' is disabled.
+2026-03-28T03:45:26.465673Z 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+2026-03-28T03:45:27.457044Z 0 [Note] InnoDB: Buffer pool(s) load completed at 260328  3:45:27
+2026-03-28T03:45:27.756216Z 0 [Note] Found ca.pem, server-cert.pem and server-key.pem in data directory. Trying to enable SSL support using them.
+2026-03-28T03:45:27.756301Z 0 [Note] Skipping generation of SSL certificates as certificate files are present in data directory.
+2026-03-28T03:45:27.756314Z 0 [Warning] A deprecated TLS version TLSv1 is enabled. Please use TLSv1.2 or higher.
+2026-03-28T03:45:27.756317Z 0 [Warning] A deprecated TLS version TLSv1.1 is enabled. Please use TLSv1.2 or higher.
+2026-03-28T03:45:27.810429Z 0 [Warning] CA certificate ca.pem is self signed.
+2026-03-28T03:45:27.810574Z 0 [Note] Skipping generation of RSA key pair as key files are present in data directory.
+2026-03-28T03:45:27.814646Z 0 [Note] Server hostname (bind-address): '*'; port: 3306
+2026-03-28T03:45:27.814721Z 0 [Note] IPv6 is available.
+2026-03-28T03:45:27.814746Z 0 [Note]   - '::' resolves to '::';
+2026-03-28T03:45:27.814762Z 0 [Note] Server socket created on IP: '::'.
+2026-03-28T03:45:28.031445Z 0 [Warning] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2026-03-28T03:45:29.752616Z 0 [Note] Event Scheduler: Loaded 0 events
+2026-03-28T03:45:29.753044Z 0 [Note] mysqld: ready for connections.
+Version: '5.7.44'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)

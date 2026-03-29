@@ -1,0 +1,57 @@
+Name:             wordpress-6ccc794d76-6nzdb
+Namespace:        wp-vuln
+Priority:         0
+Service Account:  default
+Node:             wp-lab-control-plane/172.18.0.2
+Start Time:       Sat, 28 Mar 2026 11:56:46 +0800
+Labels:           app=wordpress
+                  pod-template-hash=6ccc794d76
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.15
+IPs:
+  IP:           10.244.0.15
+Controlled By:  ReplicaSet/wordpress-6ccc794d76
+Containers:
+  wordpress:
+    Container ID:   containerd://4a4d6485d8f69efa2c9883fbd742eff378c3b846b0a74fc12885d47508733391
+    Image:          wordpress:5.2.3-php7.3-apache
+    Image ID:       docker.io/library/wordpress@sha256:661e9b06de5e9a2b9b44461206fe05362afbc66d4cc9e4f2135da083a709de9e
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 28 Mar 2026 11:56:47 +0800
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      WORDPRESS_DB_HOST:      mysql.wp-vuln.svc.cluster.local:3306
+      WORDPRESS_DB_NAME:      <set to the key 'MYSQL_DATABASE' in secret 'mysql-secret'>  Optional: false
+      WORDPRESS_DB_USER:      <set to the key 'MYSQL_USER' in secret 'mysql-secret'>      Optional: false
+      WORDPRESS_DB_PASSWORD:  <set to the key 'MYSQL_PASSWORD' in secret 'mysql-secret'>  Optional: false
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-jhcbj (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-jhcbj:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  5m13s  default-scheduler  Successfully assigned wp-vuln/wordpress-6ccc794d76-6nzdb to wp-lab-control-plane
+  Normal  Pulled     5m12s  kubelet            spec.containers{wordpress}: Container image "wordpress:5.2.3-php7.3-apache" already present on machine
+  Normal  Created    5m12s  kubelet            spec.containers{wordpress}: Created container wordpress
+  Normal  Started    5m12s  kubelet            spec.containers{wordpress}: Started container wordpress

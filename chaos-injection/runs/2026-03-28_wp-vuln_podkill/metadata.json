@@ -1,0 +1,31 @@
+{
+  "application": "wordpress",
+  "scenario": "wp-vuln",
+  "fault_type": "chaos",
+  "fault_name": "pod-kill",
+  "injection_tool": "chaos-mesh",
+
+  "timestamp": "2026-03-28",
+  "namespace": "wp-vuln",
+
+  "target": {
+    "type": "pod",
+    "label_selector": "app=wordpress"
+  },
+
+  "signals": [
+    "logs",
+    "events",
+    "describe",
+    "manifest",
+    "metrics",
+    "alerts"
+  ],
+
+  "observability_tools": {
+    "metrics": "prometheus+grafana",
+    "alerts": "falco"
+  },
+
+  "description": "Pod kill fault injected via Chaos Mesh, causing pod termination and recreation. Multi-modal signals collected for analysis."
+}

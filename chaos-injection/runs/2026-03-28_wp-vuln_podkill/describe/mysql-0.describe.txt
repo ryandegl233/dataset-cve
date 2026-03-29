@@ -1,0 +1,85 @@
+Name:             mysql-0
+Namespace:        wp-vuln
+Priority:         0
+Service Account:  default
+Node:             wp-lab-control-plane/172.18.0.2
+Start Time:       Sun, 08 Mar 2026 11:02:05 +0800
+Labels:           app=mysql
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=mysql-6d9746f66b
+                  statefulset.kubernetes.io/pod-name=mysql-0
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.7
+IPs:
+  IP:           10.244.0.7
+Controlled By:  StatefulSet/mysql
+Containers:
+  mysql:
+    Container ID:  containerd://3ffcde92a21a70edb211bf1c2bae2f39ff6efb0d9350044646e6c37c605ebbfd
+    Image:         mysql:5.7
+    Image ID:      docker.io/library/mysql@sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb
+    Port:          3306/TCP
+    Host Port:     0/TCP
+    Args:
+      --default-authentication-plugin=mysql_native_password
+    State:          Running
+      Started:      Sat, 28 Mar 2026 11:45:12 +0800
+    Ready:          True
+    Restart Count:  10
+    Environment Variables from:
+      mysql-secret  Secret  Optional: false
+    Environment:    <none>
+    Mounts:
+      /var/lib/mysql from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-swr5x (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  data-mysql-0
+    ReadOnly:   false
+  kube-api-access-swr5x:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                From     Message
+  ----     ------          ----               ----     -------
+  Normal   SandboxChanged  16d                kubelet  Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          16d                kubelet  spec.containers{mysql}: Container image "mysql:5.7" already present on machine
+  Normal   Created         16d                kubelet  spec.containers{mysql}: Created container mysql
+  Normal   Started         16d                kubelet  spec.containers{mysql}: Started container mysql
+  Normal   SandboxChanged  15d                kubelet  Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          15d                kubelet  spec.containers{mysql}: Container image "mysql:5.7" already present on machine
+  Normal   Created         15d                kubelet  spec.containers{mysql}: Created container mysql
+  Normal   Started         15d                kubelet  spec.containers{mysql}: Started container mysql
+  Normal   SandboxChanged  45h                kubelet  Pod sandbox changed, it will be killed and re-created.
+  Warning  Failed          45h (x2 over 45h)  kubelet  spec.containers{mysql}: Error: services have not yet been read at least once, cannot construct envvars
+  Normal   Pulled          45h (x3 over 45h)  kubelet  spec.containers{mysql}: Container image "mysql:5.7" already present on machine
+  Normal   Created         45h                kubelet  spec.containers{mysql}: Created container mysql
+  Normal   Started         45h                kubelet  spec.containers{mysql}: Started container mysql
+  Normal   SandboxChanged  44h                kubelet  Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          44h                kubelet  spec.containers{mysql}: Container image "mysql:5.7" already present on machine
+  Normal   Created         44h                kubelet  spec.containers{mysql}: Created container mysql
+  Normal   Started         44h                kubelet  spec.containers{mysql}: Started container mysql
+  Normal   SandboxChanged  17h                kubelet  Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          17h                kubelet  spec.containers{mysql}: Container image "mysql:5.7" already present on machine
+  Normal   Created         17h                kubelet  spec.containers{mysql}: Created container mysql
+  Normal   Started         17h                kubelet  spec.containers{mysql}: Started container mysql
+  Normal   SandboxChanged  17m                kubelet  Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          17m                kubelet  spec.containers{mysql}: Container image "mysql:5.7" already present on machine
+  Normal   Created         17m                kubelet  spec.containers{mysql}: Created container mysql
+  Normal   Started         16m                kubelet  spec.containers{mysql}: Started container mysql

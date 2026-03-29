@@ -1,0 +1,568 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2026-03-08T03:02:00Z"
+    generateName: mysql-
+    labels:
+      app: mysql
+      apps.kubernetes.io/pod-index: "0"
+      controller-revision-hash: mysql-6d9746f66b
+      statefulset.kubernetes.io/pod-name: mysql-0
+    name: mysql-0
+    namespace: wp-vuln
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: StatefulSet
+      name: mysql
+      uid: e9123c7b-8dad-4dd4-a738-6b8c74f522ce
+    resourceVersion: "41017"
+    uid: 9f391170-03ce-4875-b304-a4967a120eca
+  spec:
+    containers:
+    - args:
+      - --default-authentication-plugin=mysql_native_password
+      envFrom:
+      - secretRef:
+          name: mysql-secret
+      image: mysql:5.7
+      imagePullPolicy: IfNotPresent
+      name: mysql
+      ports:
+      - containerPort: 3306
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/mysql
+        name: data
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-swr5x
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: mysql-0
+    nodeName: wp-lab-control-plane
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: mysql
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: data-mysql-0
+    - name: kube-api-access-swr5x
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:45:12Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-08T03:02:05Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:45:12Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:45:12Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-08T03:02:05Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://3ffcde92a21a70edb211bf1c2bae2f39ff6efb0d9350044646e6c37c605ebbfd
+      image: docker.io/library/mysql:5.7
+      imageID: docker.io/library/mysql@sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb
+      lastState: {}
+      name: mysql
+      ready: true
+      restartCount: 10
+      started: true
+      state:
+        running:
+          startedAt: "2026-03-28T03:45:12Z"
+    hostIP: 172.18.0.2
+    hostIPs:
+    - ip: 172.18.0.2
+    phase: Running
+    podIP: 10.244.0.7
+    podIPs:
+    - ip: 10.244.0.7
+    qosClass: BestEffort
+    startTime: "2026-03-08T03:02:05Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2026-03-28T03:56:45Z"
+    generateName: wordpress-6ccc794d76-
+    labels:
+      app: wordpress
+      pod-template-hash: 6ccc794d76
+    name: wordpress-6ccc794d76-6nzdb
+    namespace: wp-vuln
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: wordpress-6ccc794d76
+      uid: fef77880-43e6-453a-8299-154ab4557b7e
+    resourceVersion: "42308"
+    uid: 79f13a5d-9009-4cca-a205-0d33cf1ff455
+  spec:
+    containers:
+    - env:
+      - name: WORDPRESS_DB_HOST
+        value: mysql.wp-vuln.svc.cluster.local:3306
+      - name: WORDPRESS_DB_NAME
+        valueFrom:
+          secretKeyRef:
+            key: MYSQL_DATABASE
+            name: mysql-secret
+      - name: WORDPRESS_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: MYSQL_USER
+            name: mysql-secret
+      - name: WORDPRESS_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: MYSQL_PASSWORD
+            name: mysql-secret
+      image: wordpress:5.2.3-php7.3-apache
+      imagePullPolicy: IfNotPresent
+      name: wordpress
+      ports:
+      - containerPort: 80
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-jhcbj
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: wp-lab-control-plane
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-jhcbj
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:56:48Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:56:46Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:56:48Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:56:48Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-03-28T03:56:45Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://4a4d6485d8f69efa2c9883fbd742eff378c3b846b0a74fc12885d47508733391
+      image: docker.io/library/wordpress:5.2.3-php7.3-apache
+      imageID: docker.io/library/wordpress@sha256:661e9b06de5e9a2b9b44461206fe05362afbc66d4cc9e4f2135da083a709de9e
+      lastState: {}
+      name: wordpress
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-03-28T03:56:47Z"
+    hostIP: 172.18.0.2
+    hostIPs:
+    - ip: 172.18.0.2
+    phase: Running
+    podIP: 10.244.0.15
+    podIPs:
+    - ip: 10.244.0.15
+    qosClass: BestEffort
+    startTime: "2026-03-28T03:56:46Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"mysql","namespace":"wp-vuln"},"spec":{"ports":[{"port":3306,"targetPort":3306}],"selector":{"app":"mysql"}}}
+    creationTimestamp: "2026-03-08T03:02:00Z"
+    name: mysql
+    namespace: wp-vuln
+    resourceVersion: "1180"
+    uid: a21e3153-7b05-4cc9-bb7b-38df0698a5cb
+  spec:
+    clusterIP: 10.96.113.67
+    clusterIPs:
+    - 10.96.113.67
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: mysql
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"wordpress","namespace":"wp-vuln"},"spec":{"ports":[{"nodePort":30080,"port":80,"targetPort":80}],"selector":{"app":"wordpress"},"type":"NodePort"}}
+    creationTimestamp: "2026-03-08T03:02:00Z"
+    name: wordpress
+    namespace: wp-vuln
+    resourceVersion: "1207"
+    uid: 18b329fe-75f4-4f5d-9f2e-07c7882d578d
+  spec:
+    clusterIP: 10.96.201.47
+    clusterIPs:
+    - 10.96.201.47
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 30080
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: wordpress
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"wordpress","namespace":"wp-vuln"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"wordpress"}},"template":{"metadata":{"labels":{"app":"wordpress"}},"spec":{"containers":[{"env":[{"name":"WORDPRESS_DB_HOST","value":"mysql.wp-vuln.svc.cluster.local:3306"},{"name":"WORDPRESS_DB_NAME","valueFrom":{"secretKeyRef":{"key":"MYSQL_DATABASE","name":"mysql-secret"}}},{"name":"WORDPRESS_DB_USER","valueFrom":{"secretKeyRef":{"key":"MYSQL_USER","name":"mysql-secret"}}},{"name":"WORDPRESS_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"MYSQL_PASSWORD","name":"mysql-secret"}}}],"image":"wordpress:5.2.3-php7.3-apache","name":"wordpress","ports":[{"containerPort":80}]}]}}}}
+    creationTimestamp: "2026-03-08T03:02:00Z"
+    generation: 1
+    name: wordpress
+    namespace: wp-vuln
+    resourceVersion: "42312"
+    uid: 12258dc7-8946-4a4d-a7d9-e68aa11c2ec6
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: wordpress
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: wordpress
+      spec:
+        containers:
+        - env:
+          - name: WORDPRESS_DB_HOST
+            value: mysql.wp-vuln.svc.cluster.local:3306
+          - name: WORDPRESS_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_DATABASE
+                name: mysql-secret
+          - name: WORDPRESS_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_USER
+                name: mysql-secret
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_PASSWORD
+                name: mysql-secret
+          image: wordpress:5.2.3-php7.3-apache
+          imagePullPolicy: IfNotPresent
+          name: wordpress
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-08T03:02:00Z"
+      lastUpdateTime: "2026-03-08T03:02:52Z"
+      message: ReplicaSet "wordpress-6ccc794d76" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2026-03-28T03:56:48Z"
+      lastUpdateTime: "2026-03-28T03:56:48Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-03-08T03:02:00Z"
+    generation: 1
+    labels:
+      app: wordpress
+      pod-template-hash: 6ccc794d76
+    name: wordpress-6ccc794d76
+    namespace: wp-vuln
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wordpress
+      uid: 12258dc7-8946-4a4d-a7d9-e68aa11c2ec6
+    resourceVersion: "42310"
+    uid: fef77880-43e6-453a-8299-154ab4557b7e
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: wordpress
+        pod-template-hash: 6ccc794d76
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: wordpress
+          pod-template-hash: 6ccc794d76
+      spec:
+        containers:
+        - env:
+          - name: WORDPRESS_DB_HOST
+            value: mysql.wp-vuln.svc.cluster.local:3306
+          - name: WORDPRESS_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_DATABASE
+                name: mysql-secret
+          - name: WORDPRESS_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_USER
+                name: mysql-secret
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_PASSWORD
+                name: mysql-secret
+          image: wordpress:5.2.3-php7.3-apache
+          imagePullPolicy: IfNotPresent
+          name: wordpress
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"StatefulSet","metadata":{"annotations":{},"name":"mysql","namespace":"wp-vuln"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"mysql"}},"serviceName":"mysql","template":{"metadata":{"labels":{"app":"mysql"}},"spec":{"containers":[{"args":["--default-authentication-plugin=mysql_native_password"],"envFrom":[{"secretRef":{"name":"mysql-secret"}}],"image":"mysql:5.7","name":"mysql","ports":[{"containerPort":3306}],"volumeMounts":[{"mountPath":"/var/lib/mysql","name":"data"}]}]}},"volumeClaimTemplates":[{"metadata":{"name":"data"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"5Gi"}}}}]}}
+    creationTimestamp: "2026-03-08T03:02:00Z"
+    generation: 1
+    name: mysql
+    namespace: wp-vuln
+    resourceVersion: "31934"
+    uid: e9123c7b-8dad-4dd4-a738-6b8c74f522ce
+  spec:
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: mysql
+    serviceName: mysql
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: mysql
+      spec:
+        containers:
+        - args:
+          - --default-authentication-plugin=mysql_native_password
+          envFrom:
+          - secretRef:
+              name: mysql-secret
+          image: mysql:5.7
+          imagePullPolicy: IfNotPresent
+          name: mysql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    updateStrategy:
+      rollingUpdate:
+        partition: 0
+      type: RollingUpdate
+    volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        creationTimestamp: null
+        name: data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        volumeMode: Filesystem
+      status:
+        phase: Pending
+  status:
+    availableReplicas: 1
+    collisionCount: 0
+    currentReplicas: 1
+    currentRevision: mysql-6d9746f66b
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updateRevision: mysql-6d9746f66b
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,57 @@
+LAST SEEN   TYPE      REASON             OBJECT                            MESSAGE
+5m12s       Normal    Scheduled          pod/wordpress-6ccc794d76-6nzdb    Successfully assigned wp-vuln/wordpress-6ccc794d76-6nzdb to wp-lab-control-plane
+16d         Normal    SandboxChanged     pod/wordpress-6ccc794d76-n6zk7    Pod sandbox changed, it will be killed and re-created.
+16d         Normal    SandboxChanged     pod/mysql-0                       Pod sandbox changed, it will be killed and re-created.
+16d         Normal    Pulled             pod/mysql-0                       Container image "mysql:5.7" already present on machine
+16d         Normal    Created            pod/mysql-0                       Created container mysql
+16d         Normal    Pulled             pod/wordpress-6ccc794d76-n6zk7    Container image "wordpress:5.2.3-php7.3-apache" already present on machine
+16d         Normal    Created            pod/wordpress-6ccc794d76-n6zk7    Created container wordpress
+16d         Normal    Started            pod/mysql-0                       Started container mysql
+16d         Normal    Started            pod/wordpress-6ccc794d76-n6zk7    Started container wordpress
+15d         Normal    SandboxChanged     pod/wordpress-6ccc794d76-n6zk7    Pod sandbox changed, it will be killed and re-created.
+15d         Normal    SandboxChanged     pod/mysql-0                       Pod sandbox changed, it will be killed and re-created.
+15d         Normal    Pulled             pod/wordpress-6ccc794d76-n6zk7    Container image "wordpress:5.2.3-php7.3-apache" already present on machine
+15d         Normal    Pulled             pod/mysql-0                       Container image "mysql:5.7" already present on machine
+15d         Normal    Created            pod/wordpress-6ccc794d76-n6zk7    Created container wordpress
+15d         Normal    Created            pod/mysql-0                       Created container mysql
+15d         Normal    Started            pod/mysql-0                       Started container mysql
+15d         Normal    Started            pod/wordpress-6ccc794d76-n6zk7    Started container wordpress
+45h         Normal    SandboxChanged     pod/wordpress-6ccc794d76-n6zk7    Pod sandbox changed, it will be killed and re-created.
+45h         Normal    SandboxChanged     pod/mysql-0                       Pod sandbox changed, it will be killed and re-created.
+45h         Warning   Failed             pod/wordpress-6ccc794d76-n6zk7    Error: services have not yet been read at least once, cannot construct envvars
+45h         Warning   Failed             pod/mysql-0                       Error: services have not yet been read at least once, cannot construct envvars
+45h         Normal    Pulled             pod/wordpress-6ccc794d76-n6zk7    Container image "wordpress:5.2.3-php7.3-apache" already present on machine
+45h         Normal    Created            pod/wordpress-6ccc794d76-n6zk7    Created container wordpress
+45h         Normal    Pulled             pod/mysql-0                       Container image "mysql:5.7" already present on machine
+45h         Normal    Created            pod/mysql-0                       Created container mysql
+45h         Normal    Started            pod/mysql-0                       Started container mysql
+45h         Normal    Started            pod/wordpress-6ccc794d76-n6zk7    Started container wordpress
+44h         Normal    SandboxChanged     pod/mysql-0                       Pod sandbox changed, it will be killed and re-created.
+44h         Normal    SandboxChanged     pod/wordpress-6ccc794d76-n6zk7    Pod sandbox changed, it will be killed and re-created.
+44h         Normal    Pulled             pod/mysql-0                       Container image "mysql:5.7" already present on machine
+44h         Normal    Created            pod/mysql-0                       Created container mysql
+44h         Normal    Pulled             pod/wordpress-6ccc794d76-n6zk7    Container image "wordpress:5.2.3-php7.3-apache" already present on machine
+44h         Normal    Created            pod/wordpress-6ccc794d76-n6zk7    Created container wordpress
+44h         Normal    Started            pod/mysql-0                       Started container mysql
+44h         Normal    Started            pod/wordpress-6ccc794d76-n6zk7    Started container wordpress
+17h         Normal    SandboxChanged     pod/wordpress-6ccc794d76-n6zk7    Pod sandbox changed, it will be killed and re-created.
+17h         Normal    SandboxChanged     pod/mysql-0                       Pod sandbox changed, it will be killed and re-created.
+17h         Normal    Pulled             pod/mysql-0                       Container image "mysql:5.7" already present on machine
+17h         Normal    Created            pod/wordpress-6ccc794d76-n6zk7    Created container wordpress
+17h         Normal    Pulled             pod/wordpress-6ccc794d76-n6zk7    Container image "wordpress:5.2.3-php7.3-apache" already present on machine
+17h         Normal    Created            pod/mysql-0                       Created container mysql
+17h         Normal    Started            pod/wordpress-6ccc794d76-n6zk7    Started container wordpress
+17h         Normal    Started            pod/mysql-0                       Started container mysql
+17m         Normal    SandboxChanged     pod/mysql-0                       Pod sandbox changed, it will be killed and re-created.
+17m         Normal    SandboxChanged     pod/wordpress-6ccc794d76-n6zk7    Pod sandbox changed, it will be killed and re-created.
+17m         Normal    Pulled             pod/mysql-0                       Container image "mysql:5.7" already present on machine
+17m         Normal    Created            pod/mysql-0                       Created container mysql
+16m         Normal    Pulled             pod/wordpress-6ccc794d76-n6zk7    Container image "wordpress:5.2.3-php7.3-apache" already present on machine
+16m         Normal    Created            pod/wordpress-6ccc794d76-n6zk7    Created container wordpress
+16m         Normal    Started            pod/mysql-0                       Started container mysql
+16m         Normal    Started            pod/wordpress-6ccc794d76-n6zk7    Started container wordpress
+5m13s       Normal    Killing            pod/wordpress-6ccc794d76-n6zk7    Stopping container wordpress
+5m13s       Normal    SuccessfulCreate   replicaset/wordpress-6ccc794d76   Created pod: wordpress-6ccc794d76-6nzdb
+5m11s       Normal    Created            pod/wordpress-6ccc794d76-6nzdb    Created container wordpress
+5m11s       Normal    Started            pod/wordpress-6ccc794d76-6nzdb    Started container wordpress
+5m11s       Normal    Pulled             pod/wordpress-6ccc794d76-6nzdb    Container image "wordpress:5.2.3-php7.3-apache" already present on machine
